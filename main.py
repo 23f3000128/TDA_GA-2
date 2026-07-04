@@ -25,15 +25,13 @@ logs_queue = deque(maxlen=100)
 
 def is_rate_limited(client_id: str, limit: int, prefix: str) -> bool:
     key = f"ratelimit:{prefix}:{client_id}"
-    now = time.time()
     try:
-        pipe = redis_client.pipeline()
-        pipe.zremrangebyscore(key, 0, now - 10)
-        pipe.zadd(key, {f"{now}:{uuid.uuid4()}": now})
-        pipe.zcard(key)
-        pipe.expire(key, 12)
-        res = pipe.execute()
-        count = res[2]
+        # Fixed-window counter. INCR is atomic; refreshing the 10s TTL on every
+        # hit means the count keeps climbing as long as requests are <10s apart,
+        # so a flood spread over a slow connection still trips reliably. The
+        # window only resets after 10s of inactivity from this client.
+        count = redis_client.incr(key)
+        redis_client.expire(key, 10)
         return count > limit
     except Exception as e:
         print(f"Redis rate limit error: {e}", flush=True)
