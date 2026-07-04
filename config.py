@@ -17,7 +17,7 @@ Q3_DEBUG=True
 Q3_LOG_LEVEL="warning"
 Q5_API_KEY="ak_maj6toiiwmacf8x8lhmyzs7q"
 Q9_TOTAL_ORDERS=43
-Q9_RATE_LIMIT	Under=17 
+Q9_RATE_LIMIT=17 
 Q10_ALLOWED_ORIGIN="https://app-poq0ho.example.com"
 Q10_RATE_LIMIT=9
 
