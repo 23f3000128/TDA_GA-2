@@ -29,7 +29,7 @@ def is_rate_limited(client_id: str, limit: int, prefix: str) -> bool:
     try:
         pipe = redis_client.pipeline()
         pipe.zremrangebyscore(key, 0, now - 10)
-        pipe.zadd(key, {str(now): now})
+        pipe.zadd(key, {f"{now}:{uuid.uuid4()}": now})
         pipe.zcard(key)
         pipe.expire(key, 12)
         res = pipe.execute()
@@ -82,8 +82,8 @@ async def custom_middleware(request: Request, call_next):
     response = None
 
     if path == "/orders":
-        client_id = request.headers.get("X-Client-Id", "default")
-        if "flood" in client_id or client_id == "default":
+        client_id = request.headers.get("X-Client-Id")
+        if client_id is not None:
             if is_rate_limited(client_id, config.Q9_RATE_LIMIT, "q9"):
                 response = Response(status_code=429, headers={"Retry-After": "10"})
 
