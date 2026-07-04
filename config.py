@@ -2,8 +2,7 @@ EMAIL= "23f3000128@ds.study.iitm.ac.in"
 Q1_ALLOWED_ORIGIN= "https://dash-tylzgy.example.com"
 ISSUER=	"https://idp.exam.local"
 AUDIENCE=	"tds-noglu4k4.apps.exam.local"
-PUBLIC_KEY_PEM=	
-"""-----BEGIN PUBLIC KEY-----
+PUBLIC_KEY_PEM="""-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2okOHspNjgA+2rTLbeuY
 cxiP/hG8C6Sb9iwg3yiLAA4HCnpITcbWCSelbvbYGuc3EbNy4xFyf5Cbj5DHJMID
 EkryOgyd2giIIIBOUBj8S63uGcnRpOBh9NFatfNwheKuzsPuVNldu6A9cNteNpXc
